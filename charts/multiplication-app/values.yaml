@@ -1,0 +1,39 @@
+replicaCount: 1
+
+image:
+  repository: multiplication-app
+  pullPolicy: IfNotPresent 
+  tag: "v1"
+
+service:
+  type: NodePort 
+  port: 8080
+
+# Blocs de compatibilité pour les templates Helm par défaut
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}
+
+ingress:
+  enabled: false # Résout ton erreur actuelle
+
+autoscaling:
+  enabled: false
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Sécurité (Banque de France style)
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 65532
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+    - ALL
